@@ -4,7 +4,16 @@ io.Writer).
 
 The Python world of things is not that organized, so iocp.copy will try to do a
 best guess about which are the right function to call when reading and writing.
+
+For example, checking md5 signature of a file::
+
+    md5 = hashlib.md5()
+    with open('/path/to/file') as fo:
+        iocp(fo, md5)
+    print md5.hexdigest()
 '''
+
+__version__ = '0.1.0'
 
 READ_FNS = [
     'read',  # file, StringIO ...
@@ -17,7 +26,8 @@ WRITE_FNS = [
     'update',  # hashlib ...
 ]
 
-BUFSIZE = 32*1024
+# Default buffer size
+BUFSIZE = 32 * 1024
 
 
 def find_fn(obj, names, name):
